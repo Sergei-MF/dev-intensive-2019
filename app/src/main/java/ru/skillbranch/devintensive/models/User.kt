@@ -11,7 +11,7 @@ data class User(
     var avatar: String?,
     var rating: Int = 0,
     var respect: Int = 0,
-    val lastVisit: Date? = null,
+    val lastVisit: Date? = Date(),
     val isOnline: Boolean = false
 ) {
     constructor(id: String, firstName: String?, lastName: String?) : this(
@@ -30,7 +30,7 @@ data class User(
         private var avatar: String? = null,
         private var rating: Int = 0,
         private var respect: Int = 0,
-        private var lastVisit: Date? = null,
+        private var lastVisit: Date? = Date(),
         private var isOnline: Boolean = false
     ) {
         fun id(id: String) = apply { this.id = id }
@@ -61,7 +61,7 @@ data class User(
 
     companion object Factory {
         private var lastId: Int = -1
-        fun makeUsers(fullName: String?): User {
+        fun makeUser(fullName: String?): User {
             lastId++
 
             val (firstName, lastName) = Utils.parseFullName(fullName)

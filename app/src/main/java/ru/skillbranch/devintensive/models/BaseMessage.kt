@@ -10,16 +10,18 @@ abstract class BaseMessage(
     val date: Date = Date()
 ) {
 
-    abstract fun foormatMessage(): String
+    abstract fun formatMessage(): String
 
     companion object AbstractFactory {
         var lastId = -1
+
         fun makeMessage(
             from: User?,
             chat: Chat,
             date: Date = Date(),
             type: String = "text",
-            paylod: Any?
+            payload: Any?,
+            isIncoming: Boolean = false
         ): BaseMessage {
             lastId++
             return when (type) {
@@ -27,10 +29,18 @@ abstract class BaseMessage(
                     "$lastId",
                     from,
                     chat,
+                    isIncoming = isIncoming,
                     date = date,
-                    image = paylod as String
+                    image = payload as String
                 )
-                else -> TextMessage("$lastId", from, chat, date = date, text = paylod as String)
+                else -> TextMessage(
+                    "$lastId",
+                    from,
+                    chat,
+                    isIncoming = isIncoming,
+                    date = date,
+                    text = payload as String
+                )
             }
         }
     }
