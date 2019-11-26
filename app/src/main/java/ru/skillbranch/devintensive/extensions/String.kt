@@ -1,5 +1,6 @@
 package ru.skillbranch.devintensive.extensions
 
+import android.content.res.Resources
 import java.util.regex.Pattern
 
 /**
@@ -23,3 +24,10 @@ fun String.stripHtml(): String {
         .replace(regExClearSpaces.toRegex(), " ")
         .replace(regExClearHtmlGarbage.toRegex(), "")
 }
+
+/**
+ *
+ */
+fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
+
+fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()

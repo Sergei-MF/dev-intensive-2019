@@ -1,5 +1,6 @@
 package ru.skillbranch.devintensive.utils
 
+import android.content.res.Resources
 import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
@@ -110,5 +111,6 @@ object Utils {
     private fun Char.toString(isUpperCase: Boolean): String {
         return if (!isUpperCase) this.toString() else this.toString().toUpperCase()
     }
+
 }
 
