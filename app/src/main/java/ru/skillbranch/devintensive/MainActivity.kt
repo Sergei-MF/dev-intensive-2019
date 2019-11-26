@@ -17,6 +17,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import ru.skillbranch.devintensive.extensions.hideKeyboard
 import ru.skillbranch.devintensive.extensions.toDp
 import ru.skillbranch.devintensive.extensions.toPx
 import ru.skillbranch.devintensive.models.Bender
@@ -102,48 +103,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         this.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 handleAnswer()
-                //todo hide keyboard
                 hideKeyboard()
                 true
             } else false
         }
-    }
-
-    /**
-     * Спрятать клавиатуру
-     */
-    private fun Activity.hideKeyboard() {
-        currentFocus?.let { focus ->
-            (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).apply {
-                hideSoftInputFromWindow(focus.windowToken, 0)
-            }
-        }
-    }
-
-    /**
-     * открыта ли Software Keyboard
-     */
-    fun Activity.isKeyboardOpen(): Boolean {
-        return measureVisibleDisplayFrameHeight(window.decorView.rootView) >= 250.toPx()
-    }
-
-    /**
-     * закрыта ли Software Keyboard
-     */
-    fun Activity.isKeyboardClosed(): Boolean {
-        return measureVisibleDisplayFrameHeight(window.decorView.rootView) < 250.toPx()
-    }
-
-    /**
-     * Измерение высоты экрана
-     */
-    fun measureVisibleDisplayFrameHeight(rootView: View): Int {
-        var heightDiff = -1
-//        rootView.viewTreeObserver.addOnGlobalLayoutListener {
-        val rect = Rect()
-        rootView.getWindowVisibleDisplayFrame(rect)
-        heightDiff = rootView.rootView.height - (rect.bottom - rect.top)
-//        }
-        return heightDiff
     }
 }
